@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "🚀 Preparando entorno Estudio OpenClaw..."
+echo "Preparando entorno Estudio OpenClaw..."
 
 # Crear directorios si no existen
 mkdir -p workspace

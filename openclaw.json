@@ -3,7 +3,7 @@
     "mode": "local",
     "port": 18789,
     "auth": {
-      "token": ""
+      "token": "estudio_token"
     },
     "controlUi": {
       "allowInsecureAuth": true,
@@ -15,9 +15,9 @@
   },
   "channels": {
     "telegram": {
-      "enabled": false,
+      "enabled": true,
       "dmPolicy": "pairing",
-      "botToken": ""
+      "botToken": "8915100790:AAEG0LozWDhVFXqUGmM2irYvc_2_H0I128A"
     }
   },
   "agents": {
