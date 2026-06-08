@@ -1,0 +1,72 @@
+{
+  "gateway": {
+    "mode": "local",
+    "port": 18789,
+    "auth": {
+      "token": "estudio_token"
+    },
+    "controlUi": {
+      "allowInsecureAuth": true,
+      "dangerouslyDisableDeviceAuth": true,
+      "allowedOrigins": [
+        "*"
+      ]
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "botToken": "8915100790:AAEG0LozWDhVFXqUGmM2irYvc_2_H0I128A"
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "google/gemini-2.5-flash"
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "model": {
+          "primary": "google/gemini-2.5-flash"
+        },
+        "maxConcurrent": 4,
+        "maxSpawnDepth": 2,
+        "maxChildrenPerAgent": 5,
+        "runTimeoutSeconds": 900
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "default": true,
+        "model": {
+          "primary": "google/gemini-2.5-flash"
+        },
+        "workspace": "/root/.openclaw/workspace",
+        "subagents": {
+          "allowAgents": [
+            "*"
+          ]
+        }
+      }
+    ]
+  },
+  "tools": {
+    "profile": "full",
+    "sessions": {
+      "visibility": "all"
+    },
+    "agentToAgent": {
+      "enabled": true,
+      "allow": [
+        "*"
+      ]
+    }
+  },
+  "session": {
+    "agentToAgent": {
+      "maxPingPongTurns": 5
+    }
+  }
+}

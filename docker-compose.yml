@@ -1,0 +1,52 @@
+services:
+  ceo:
+    image: ghcr.io/openclaw/openclaw:latest
+    container_name: estudio-openclaw
+    user: "0:0"
+    shm_size: '512mb'
+    init: true
+    network_mode: host
+    volumes:
+      - ./openclaw.json:/root/.openclaw/openclaw.json
+      - ./workspace:/root/.openclaw/workspace
+    environment:
+      - NODE_OPTIONS=--max-old-space-size=2048
+      - OPENCLAW_MODE=local
+      - OPENCLAW_GATEWAY_MODE=local
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - PUBLIC_IP=${PUBLIC_IP:-localhost}
+      - OPENCLAW_GATEWAY_TOKEN=${OPENCLAW_GATEWAY_TOKEN}
+      - TZ=America/Mexico_City
+    command: >
+      sh -c "
+        echo '=> Inyectando secretos desde variables de entorno...' &&
+        node -e \"
+          const fs = require('fs');
+          const cfg = '/root/.openclaw/openclaw.json';
+          if (fs.existsSync(cfg)) {
+            let data = JSON.parse(fs.readFileSync(cfg, 'utf8'));
+
+          const authToken = process.env.OPENCLAW_GATEWAY_TOKEN;
+          if (authToken && authToken !== '') {
+            data.gateway = data.gateway || {};
+            data.gateway.auth = data.gateway.auth || {};
+            data.gateway.auth.token = authToken;
+            console.log('=> Auth token injected');
+          }
+
+            data.channels = data.channels || {};
+            data.channels.telegram = data.channels.telegram || {};
+            const tg = process.env.TELEGRAM_BOT_TOKEN;
+            if (tg && tg !== '') {
+              data.channels.telegram.enabled = true;
+              data.channels.telegram.botToken = tg;
+              console.log('=> Telegram token injected');
+            }
+            fs.writeFileSync(cfg, JSON.stringify(data, null, 2));
+          }
+        \" &&
+        echo '=> Iniciando OpenClaw gateway...' &&
+        exec /usr/local/bin/docker-entrypoint.sh node openclaw.mjs gateway --allow-unconfigured
+      "
+    restart: unless-stopped
