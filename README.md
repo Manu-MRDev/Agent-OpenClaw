@@ -47,7 +47,7 @@ Instancia de estudio y pruebas de OpenClaw, un orquestador de agentes AI con sop
 
 | Componente | URL |
 |---|---|
-| Dashboard web | http://localhost:160206/#token=estudio_token |
+| Dashboard web | http://localhost:1602/#token=estudio_token |
 | Telegram | @Estudio_OpenClaw_bot (si configuraste el token) |
 
 El token de acceso al dashboard es el que definiste en `OPENCLAW_GATEWAY_TOKEN`.
