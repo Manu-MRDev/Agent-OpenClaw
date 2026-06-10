@@ -1,7 +1,7 @@
 {
   "gateway": {
     "mode": "local",
-    "port": 18789,
+    "port": 160206,
     "auth": {
       "token": "estudio_token"
     },
@@ -17,7 +17,7 @@
     "telegram": {
       "enabled": true,
       "dmPolicy": "pairing",
-      "botToken": "8915100790:AAEG0LozWDhVFXqUGmM2irYvc_2_H0I128A"
+      "botToken": "8915100790:AAGEg2cQodMSQEqyQX9-cklYYZO5OxvR9lw"
     }
   },
   "agents": {
